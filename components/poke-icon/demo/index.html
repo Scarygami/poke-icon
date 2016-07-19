@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>poke-icon demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../poke-icon.html">
+
+    <style is="custom-style">
+      poke-icon {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div>
+      <h3>Gotta catch 'em all!</h3>
+      <template is="dom-bind" id="demo">
+        <template is="dom-repeat" items="[[numbers]]">
+          <poke-icon nr="[[item]]"></poke-icon>
+        </template>
+      </template>
+    </div>
+
+    <script>
+      (function () {
+        var numbers = [];
+        for (i = 1; i <= 151; i++) {
+          numbers.push(i);
+        }
+        document.getElementById("demo").numbers = numbers;
+      }());
+    </script>
+
+  </body>
+</html>

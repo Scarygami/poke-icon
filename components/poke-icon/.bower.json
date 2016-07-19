@@ -1,0 +1,45 @@
+{
+  "name": "poke-icon",
+  "authors": [
+    "Gerwin Sturm <scarygami@gmail.com>"
+  ],
+  "description": "Gotta catch 'em all!",
+  "main": "poke-icon.html",
+  "keywords": [
+    "Polymer",
+    "pokemon",
+    "pokemongo",
+    "pokémon",
+    "pokémongo",
+    "web-components",
+    "web-component"
+  ],
+  "license": "Apache 2.0",
+  "homepage": "https://github.com/Scarygami/poke-icon/",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "61177d387c",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "61177d387ccc8aa78e02eba811c0ef9fb5bbf14d"
+  },
+  "_source": "https://github.com/Scarygami/poke-icon.git",
+  "_target": "master",
+  "_originalSource": "Scarygami/poke-icon",
+  "_direct": true
+}
