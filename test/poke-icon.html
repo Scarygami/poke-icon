@@ -1,0 +1,108 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>poke-icon test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../poke-icon.html">
+  </head>
+  <body>
+
+    <test-fixture id="icon-test">
+      <template>
+        <poke-icon></poke-icon>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('poke-icon', function () {
+
+        suite('basic', function () {
+          test('instantiating the element works', function () {
+            var element = fixture('icon-test');
+            assert.equal(element.is, 'poke-icon');
+          });
+        });
+
+        suite('valid icons should be displayed', function () {
+
+          test('valid number', function (done) {
+            var element = fixture('icon-test');
+            element.set('nr', 1);
+            flush(function () {
+              var style = window.getComputedStyle(element);
+              assert.equal(style.display, 'block');
+              done();
+            });
+          });
+
+          test('valid name', function (done) {
+            var element = fixture('icon-test');
+            element.set('name', 'bulbasaur');
+            flush(function () {
+              var style = window.getComputedStyle(element);
+              assert.equal(style.display, 'block');
+              done();
+            });
+          });
+        });
+
+        suite('correct image should be display', function () {
+            test('valid number', function (done) {
+            var element = fixture('icon-test');
+            element.set('nr', 1);
+            flush(function () {
+              assert.match(element.$.icon.src, /^.*images\/1.png$/i);
+              done();
+            });
+          });
+
+          test('valid name', function (done) {
+            var element = fixture('icon-test');
+            element.set('name', 'bulbasaur');
+            flush(function () {
+              assert.match(element.$.icon.src, /^.*images\/1.png$/i);
+              done();
+            });
+          });
+        });
+
+        suite('invalid icons should be hidden', function () {
+          test('no property', function () {
+            var element = fixture('icon-test');
+            var style = window.getComputedStyle(element);
+            assert.equal(style.display, 'none');
+            assert.equal(element.invalid, true);
+          });
+
+          test('invalid number', function (done) {
+            var element = fixture('icon-test');
+            element.set('nr', 160);
+            flush(function () {
+              var style = window.getComputedStyle(element);
+              assert.equal(style.display, 'none');
+              assert.equal(element.invalid, true);
+              done();
+            });
+          });
+
+          test('invalid name', function (done) {
+            var element = fixture('icon-test');
+            element.set('name', 'test');
+            flush(function () {
+              var style = window.getComputedStyle(element);
+              assert.equal(style.display, 'none');
+              assert.equal(element.invalid, true);
+              done();
+            });
+          });
+        });
+
+      });
+    </script>
+  </body>
+</html>

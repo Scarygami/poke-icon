@@ -1,0 +1,275 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Element to display (generation 1) Pokémon.
+
+Pokémon can be specified by number or by name.
+
+```
+<poke-icon nr="130"></poke-icon>
+<poke-icon name="Gyarados"></poke-icon>
+```
+
+`poke-icon` can be sized and styled using normal CSS. The image will be sized to fit inside of the `poke-icon` container.
+
+```
+poke-icon {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}
+```
+
+The images included are transparent png with a size of 35x35, so you can't display them too large.
+If you know of a source for SVG files of all Pokémon, I'd be happy to replace them.
+
+The source icons are (c) Nintendo/Creatures Inc./GAME FREAK Inc./The Pokémon Company and used here under fair use in a non-commerical, open-source project.
+
+Use at your own risk when including this element on your own website, especially for commercial purposes.
+
+@element poke-icon
+@blurb Gotta catch 'em all!
+@homepage https://scarygami.github.io/poke-icon/
+@demo demo/index.html
+-->
+
+<dom-module id='poke-icon'>
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 0;
+        width: 35px;
+        height: 35px;
+      }
+
+      :host([invalid]) {
+        display: none;
+      }
+
+      :host([hidden]) {
+        display: none;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+
+    <img id="icon" src="[[_imgUrl(nr)]]">
+
+  </template>
+  <script>
+    (function () {
+      var pokemon = [
+        'BULBASAUR',
+        'IVYSAUR',
+        'VENUSAUR',
+        'CHARMANDER',
+        'CHARMELEON',
+        'CHARIZARD',
+        'SQUIRTLE',
+        'WARTORTLE',
+        'BLASTOISE',
+        'CATERPIE',
+        'METAPOD',
+        'BUTTERFREE',
+        'WEEDLE',
+        'KAKUNA',
+        'BEEDRILL',
+        'PIDGEY',
+        'PIDGEOTTO',
+        'PIDGEOT',
+        'RATTATA',
+        'RATICATE',
+        'SPEAROW',
+        'FEAROW',
+        'EKANS',
+        'ARBOK',
+        'PIKACHU',
+        'RAICHU',
+        'SANDSHREW',
+        'SANDSLASH',
+        'NIDORAN♀',
+        'NIDORINA',
+        'NIDOQUEEN',
+        'NIDORAN♂',
+        'NIDORINO',
+        'NIDOKING',
+        'CLEFAIRY',
+        'CLEFABLE',
+        'VULPIX',
+        'NINETALES',
+        'JIGGLYPUFF',
+        'WIGGLYTUFF',
+        'ZUBAT',
+        'GOLBAT',
+        'ODDISH',
+        'GLOOM',
+        'VILEPLUME',
+        'PARAS',
+        'PARASECT',
+        'VENONAT',
+        'VENOMOTH',
+        'DIGLETT',
+        'DUGTRIO',
+        'MEOWTH',
+        'PERSIAN',
+        'PSYDUCK',
+        'GOLDUCK',
+        'MANKEY',
+        'PRIMEAPE',
+        'GROWLITHE',
+        'ARCANINE',
+        'POLIWAG',
+        'POLIWHIRL',
+        'POLIWRATH',
+        'ABRA',
+        'KADABRA',
+        'ALAKAZAM',
+        'MACHOP',
+        'MACHOKE',
+        'MACHAMP',
+        'BELLSPROUT',
+        'WEEPINBELL',
+        'VICTREEBEL',
+        'TENTACOOL',
+        'TENTACRUEL',
+        'GEODUDE',
+        'GRAVELER',
+        'GOLEM',
+        'PONYTA',
+        'RAPIDASH',
+        'SLOWPOKE',
+        'SLOWBRO',
+        'MAGNEMITE',
+        'MAGNETON',
+        'FARFETCH\'D',
+        'DODUO',
+        'DODRIO',
+        'SEEL',
+        'DEWGONG',
+        'GRIMER',
+        'MUK',
+        'SHELLDER',
+        'CLOYSTER',
+        'GASTLY',
+        'HAUNTER',
+        'GENGAR',
+        'ONIX',
+        'DROWZEE',
+        'HYPNO',
+        'KRABBY',
+        'KINGLER',
+        'VOLTORB',
+        'ELECTRODE',
+        'EXEGGCUTE',
+        'EXEGGUTOR',
+        'CUBONE',
+        'MAROWAK',
+        'HITMONLEE',
+        'HITMONCHAN',
+        'LICKITUNG',
+        'KOFFING',
+        'WEEZING',
+        'RHYHORN',
+        'RHYDON',
+        'CHANSEY',
+        'TANGELA',
+        'KANGASKHAN',
+        'HORSEA',
+        'SEADRA',
+        'GOLDEEN',
+        'SEAKING',
+        'STARYU',
+        'STARMIE',
+        'MR. MIME',
+        'SCYTHER',
+        'JYNX',
+        'ELECTABUZZ',
+        'MAGMAR',
+        'PINSIR',
+        'TAUROS',
+        'MAGIKARP',
+        'GYARADOS',
+        'LAPRAS',
+        'DITTO',
+        'EEVEE',
+        'VAPOREON',
+        'JOLTEON',
+        'FLAREON',
+        'PORYGON',
+        'OMANYTE',
+        'OMASTAR',
+        'KABUTO',
+        'KABUTOPS',
+        'AERODACTYL',
+        'SNORLAX',
+        'ARTICUNO',
+        'ZAPDOS',
+        'MOLTRES',
+        'DRATINI',
+        'DRAGONAIR',
+        'DRAGONITE',
+        'MEWTWO',
+        'MEW'
+      ];
+
+      Polymer({
+        is: 'poke-icon',
+
+        properties: {
+          /**
+           * Number of the Pokémon. Has to be between 1 and 151.
+           */
+          'nr': Number,
+
+          /**
+           * English name of the Pokémon, e.g. Dragonite. Case doesn't matter.
+           */
+          'name': {
+            type: String,
+            observer: '_nameChanged'
+          },
+
+          /**
+           * True when an invalid name or nr has been defined. Icon will be hidden in this case
+           */
+          'invalid': {
+            type: Boolean,
+            value: true,
+            reflectToAttribute: true,
+            computed: '_isInvalid(nr)',
+          }
+        },
+
+        _isInvalid: function (nr) {
+          if (!nr) {
+            return true;
+          }
+          if (nr < 1 || nr > 151) {
+            return true;
+          }
+          return false;
+        },
+
+        _nameChanged: function (name) {
+          if (!name) {
+            return;
+          }
+          this.set('nr', pokemon.indexOf(name.toUpperCase()) + 1);
+        },
+
+        _imgUrl: function (nr) {
+          if (this._isInvalid(nr)) {
+            return '';
+          }
+          return this.resolveUrl('images/' + nr.toString(10) + '.png');
+        }
+      });
+    }());
+  </script>
+
+</dom-module>
